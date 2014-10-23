@@ -1,4 +1,3 @@
-var Promise = require('bluebird');
 var fnk = {};
 
 fnk.argsToArray = function(args){
@@ -230,4 +229,9 @@ fnk = fnk.map(function(v, k){
     }
 }, fnk);
 
-module.exports = fnk;
+if (typeof module !== 'undefined' && module.exports) {
+    var Promise = require('bluebird');
+    module.exports = fnk;
+} else {
+    window.fnk = fnk;
+}
