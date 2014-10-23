@@ -1,0 +1,14 @@
+{
+  "name": "fnk",
+  "version": "1.0.0",
+  "description": "Small library to assist with functional programming in JavaScript",
+  "main": "fnk.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Julian Krispel-Samsel <julian@goodafternoon.co> (http://goodafternoon.co/)",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.3.6"
+  }
+}
