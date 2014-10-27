@@ -14,6 +14,73 @@ fnk.prepend = function(prepend, str){
     return prepend + str;
 };
 
+fnk.groupBy = function(fn, data){
+    var obj = {};
+    fnk.forEach(function(item, i){
+        var key = fn(item, i).toString();
+        if(!obj.hasOwnProperty(key)){
+            obj[key] = [];
+        }
+        obj[key].push(item);
+    }, data);
+    return obj;
+};
+
+fnk.values = function(data){
+    var vals = [];
+    fnk.forEach(function(item){
+        vals.push(item);
+    }, data);
+    return vals;
+};
+
+fnk.groupByCount = function(object, count){
+    var result = fnk.groupBy(function(item, i){
+        return Math.floor((i)/count);
+    }, object);
+    return fnk.values(result);
+};
+
+fnk.reduce = function(fnc, data){
+    if(data.reduce){
+        data.reduce(fnc);
+    }else{
+        var firstArg = data[0];
+        var result;
+        fnk.forEach(function(item, i){
+            if(i === 0){
+                result = item;
+            }else{
+                result = fnc(result, item);
+            }
+        }, data);
+    }
+};
+
+fnk.skip = function(num, _data){
+    var data = _data;
+    data.unshift(num);
+    return data;
+};
+
+fnk.drop = function(num, _data){
+    var data = _data;
+    data.shift(num);
+    return data;
+};
+
+fnk.flatten = function(data){
+    var result = [];
+    fnk.forEach(function(item){
+        if(fnk.isType(item) == array){
+            result.concat(fnk.flatten(item));
+        }else{
+            result.push(item);
+        }
+    });
+    return result;
+};
+
 fnk.join = function(symbol, array){
     return array.join(symbol);
 };
