@@ -14,6 +14,18 @@ fnk.prepend = function(prepend, str){
     return prepend + str;
 };
 
+fnk.random = function(min, max){
+    return Math.random() * (max - min) + min;
+};
+
+fnk.floor = function(num){
+    return Math.floor(num);
+};
+
+fnk.ceil = function(num){
+    return Math.ceil(num);
+};
+
 fnk.groupBy = function(fn, data){
     var obj = {};
     fnk.forEach(function(item, i){
@@ -34,11 +46,18 @@ fnk.values = function(data){
     return vals;
 };
 
-fnk.groupByCount = function(object, count){
-    var result = fnk.groupBy(function(item, i){
-        return Math.floor((i)/count);
-    }, object);
-    return fnk.values(result);
+fnk.groupByCount = function(count, data){
+    var result = [];
+    for(var i = 0; i < data.length; i+=count){
+        var subresult = [];
+        for(var x = 0; x < count; x++){
+            if(data[i+x] !== undefined){
+                subresult.push(data[i+x]);
+            }
+        }
+        result.push(subresult);
+    }
+    return result;
 };
 
 fnk.reduce = function(fnc, data){
@@ -72,12 +91,12 @@ fnk.drop = function(num, _data){
 fnk.flatten = function(data){
     var result = [];
     fnk.forEach(function(item){
-        if(fnk.isType(item) == array){
-            result.concat(fnk.flatten(item));
+        if(fnk.getType(item) === 'array'){
+            result = result.concat(item);
         }else{
             result.push(item);
         }
-    });
+    }, data);
     return result;
 };
 
