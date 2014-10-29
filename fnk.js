@@ -14,6 +14,12 @@ fnk.prepend = function(prepend, str){
     return prepend + str;
 };
 
+fnk.not = function(func){
+    return function(){
+        return !func.apply(this, arguments);
+    };
+};
+
 fnk.random = function(min, max){
     return Math.random() * (max - min) + min;
 };
