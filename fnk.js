@@ -322,7 +322,8 @@ fnk = fnk.map(function(v, k){
 }, fnk);
 
 if (typeof module !== 'undefined' && module.exports) {
-    var Promise = require('bluebird');
+//    console.log('promise isn\'t here');
+//    var Promise = require('bluebird');
     module.exports = fnk;
 } else {
     window.fnk = fnk;
